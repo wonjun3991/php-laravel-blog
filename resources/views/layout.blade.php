@@ -22,15 +22,16 @@
     </style>
 </head>
 <body class="antialiased">
-    @guest
-        <button onclick="location.href='{{ route('auth.login-form') }}'">로그인</button>
-        <button onclick="location.href='{{ route('auth.register-form') }}'">회원가입</button>
-    @endguest
-    @auth
-        <div>로그인이 되었습니다.</div>
-    @endauth
-    <div class="container">
-        @yield('content')
-    </div>
+@guest
+    <button onclick="location.href='{{ route('auth.login-form') }}'">로그인</button>
+    <button onclick="location.href='{{ route('auth.register-form') }}'">회원가입</button>
+@endguest
+@auth
+    <div>로그인이 되었습니다.</div>
+    <button onclick="location.href='{{ route('auth.logout') }}'">로그아웃</button>
+@endauth
+<div class="container">
+    @yield('content')
+</div>
 </body>
 </html>

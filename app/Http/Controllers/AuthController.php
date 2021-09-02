@@ -18,11 +18,12 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request)
     {
-        $validatedData = $request->validated();
+        $credentials = $request->validated();
 
-        if (Auth::attempt($validatedData)) {
+        if (Auth::attempt($credentials)) {
             return redirect()->route('posts.index');
         }
+
         return redirect()->back();
     }
 
@@ -34,12 +35,9 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $validatedData = $request->validated();
+        $validatedData['password'] = Hash::make($validatedData['password']);
 
-        $user = new User();
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-        $user->password = Hash::make($validatedData['password']);
-        $user->saveOrFail();
+        User::create($validatedData);
 
         return redirect()->route('auth.login-form');
     }

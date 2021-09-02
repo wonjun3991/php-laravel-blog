@@ -8,9 +8,11 @@
         <div>{{$post->content}}</div>
     </div>
     <div>
-        <button onclick="location.href='{{route('posts.edit',['post'=>$post])}}'">
-            Edit Post
-        </button>
+        @auth
+            <button onclick="location.href='{{route('posts.edit',['post'=>$post])}}'">
+                Edit Post
+            </button>
+        @endauth
     </div>
     <div>
         @foreach($post->comments as $comment)
@@ -18,6 +20,8 @@
                 {{$comment->content}}
             </div>
         @endforeach
-        @include('comments.form',['post'=>$post])
+        @auth
+            @include('comments.form',['post'=>$post])
+        @endauth
     </div>
 @endsection

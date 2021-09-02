@@ -42,13 +42,7 @@ class PostController
      */
     public function store(PostRequest $request)
     {
-        $validatedData = $request->validated();
-
-        $post = new Post();
-        $post->title = $validatedData['title'];
-        $post->content = $validatedData['content'];
-        $post->saveOrFail();
-
+        $post = Post::create($request->validated());
         return redirect()->route('posts.show', ['post' => $post]);
     }
 
@@ -83,11 +77,7 @@ class PostController
      */
     public function update(PostRequest $request, Post $post)
     {
-        $validatedData = $request->validated();
-        $post->title = $validatedData['title'];
-        $post->content = $validatedData['content'];
-        $post->saveOrFail();
-
+        $post->update($request->validated());
         return redirect()->route('posts.show', ['post' => $post]);
     }
 

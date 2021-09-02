@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Database\Factories\CommentFactory;
+use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,17 +25,27 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Comment whereId($value)
  * @method static Builder|Comment wherePostId($value)
  * @method static Builder|Comment whereUpdatedAt($value)
- * @mixin Builder
+ * @mixin Builder|Eloquent
  * @property-read \App\Models\Post $posts
+ * @property-read \App\Models\Post $post
+ * @method static Builder|Comment whereUsersId($value)
+ * @property int $user_id
+ * @method static Builder|Comment whereUserId($value)
  */
 class Comment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['post_id', 'content'];
+    protected $fillable = [
+        'post_id',
+        'content',
+        'user_id'
+    ];
+
+    protected $guarded = [];
 
     public function post()
     {
-        return $this->belongsTo('App\Models\Post');
+        return $this->belongsTo(Post::class);
     }
 }

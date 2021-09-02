@@ -20,10 +20,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resources([
-    'posts' => PostController::class,
-    'posts.comments' => CommentController::class,
-]);
+Route::prefix('posts')->name('posts.')->group(function () {
+    Route::middleware('auth')->group(function () {
+        Route::post('/', [PostController::class, 'store'])->name('store');
+        Route::get('/create', [PostController::class, 'create'])->name('create');
+        Route::get('/{post}/edit', [PostController::class, 'edit'])->name('edit');
+        Route::put('/{post}', [PostController::class, 'update'])->name('update');
+        Route::delete('/{post}', [PostController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::get('/', [PostController::class, 'index'])->name('index');
+    Route::get('/{post}', [PostController::class, 'show'])->name('show');
+
+    Route::prefix('{post}/comments')->name('comments.')->group(function () {
+        Route::middleware('auth')->post('/', [CommentController::class, 'store'])->name('store');
+    });
+});
 
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('login', [AuthController::class, 'loginForm'])->name('login-form');

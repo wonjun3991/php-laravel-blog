@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Post newModelQuery()
  * @method static Builder|Post newQuery()
  * @method static Builder|Post query()
- * @mixin Builder
+ * @mixin Builder|\Eloquent
  * @property int $id
  * @property string $title
  * @property string $content
@@ -27,6 +27,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Post whereUpdatedAt($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
  * @property-read int|null $comments_count
+ * @method static Builder|Post whereUsersId($value)
+ * @property int $user_id
+ * @method static Builder|Post whereUserId($value)
  */
 class Post extends Model
 {
@@ -34,11 +37,12 @@ class Post extends Model
 
     protected $fillable = [
         'title',
-        'content'
+        'content',
+        'user_id'
     ];
 
     public function comments()
     {
-        return $this->hasMany('App\Models\Comment');
+        return $this->hasMany(Comment::class);
     }
 }

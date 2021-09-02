@@ -15,8 +15,8 @@
         </div>
     @endforeach
     @auth
-    <div>
-        <button onclick="location.href='{{route('posts.create')}}'">Create Post</button>
-    </div>
+        <div>
+            <button onclick="location.href='{{route('posts.create')}}'">Create Post</button>
+        </div>
     @endauth
 @endsection
