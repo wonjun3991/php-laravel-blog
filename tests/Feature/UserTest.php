@@ -3,13 +3,17 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use Illuminate\Http\Response;
 use Tests\TestCase;
 
+
+/**
+ * @coversDefaultClass \App\Http\Controllers\AuthController
+ */
 class UserTest extends TestCase
 {
     /**
      * @test
+     * @covers ::login
      */
     public function 로그인_성공()
     {
@@ -25,6 +29,7 @@ class UserTest extends TestCase
 
     /**
      * @test
+     * @covers ::login
      */
     public function 로그인_실패()
     {
@@ -41,6 +46,7 @@ class UserTest extends TestCase
     /**
      * @test
      * @testdox UserFactory 에서 생성하는 유저는 'password' 를 해쉬화 한 값을 갖고있다.
+     * @covers ::register
      */
     public function 회원가입_후_유저생성_확인()
     {
@@ -62,7 +68,8 @@ class UserTest extends TestCase
 
     /**
      * @test
-     * @testdox 중복된 이메일은 회원가입시 오류 발생
+     * @testdox 중복된 이메일은 회원가입시 validation 오류 발생
+     * @covers ::register
      */
     public function 회원가입_중복된_이메일()
     {
@@ -75,6 +82,8 @@ class UserTest extends TestCase
                 'password' => 'password',
             ]
         );
-        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        $response->assertInvalid(['email']);
+        $response->assertRedirect();
     }
 }
