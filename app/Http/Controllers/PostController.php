@@ -12,7 +12,6 @@ use Illuminate\Http\Response;
 
 class PostController
 {
-
     /**
      * Display a listing of the resource.
      *

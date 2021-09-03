@@ -27,6 +27,7 @@
     <button onclick="location.href='{{ route('auth.register-form') }}'">회원가입</button>
 @endguest
 @auth
+    <div>{{ Auth::user()->name }}</div>
     <div>로그인이 되었습니다.</div>
     <button onclick="location.href='{{ route('auth.logout') }}'">로그아웃</button>
 @endauth

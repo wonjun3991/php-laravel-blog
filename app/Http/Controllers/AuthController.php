@@ -24,7 +24,7 @@ class AuthController extends Controller
             return redirect()->route('posts.index');
         }
 
-        return redirect()->back();
+        return redirect()->route('auth.login-form');
     }
 
     public function registerForm()
