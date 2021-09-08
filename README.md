@@ -9,7 +9,6 @@
 - php7.4
 - composer
 ## 설치
-.env 파일의 database 위치는 직접 지정해주세요
 ```bash
 cp .env.example .env
 touch database/database.sqlite
