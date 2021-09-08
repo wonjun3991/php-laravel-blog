@@ -10,3 +10,7 @@ cp .env.example .env
 touch database/database.sqlite
 composer install
 ```
+## 실행
+```bash
+php artisan serve
+```
