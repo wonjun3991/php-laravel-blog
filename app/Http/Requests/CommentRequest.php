@@ -3,10 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
 class CommentRequest extends FormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'content' => ['required', 'string'],

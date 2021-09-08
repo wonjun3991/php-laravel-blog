@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 
 class RegisterRequest extends FormRequest
 {
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => ['required', 'string'],

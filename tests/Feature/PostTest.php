@@ -7,7 +7,7 @@ use App\Models\User;
 use Tests\TestCase;
 
 /**
- * @coversDefaultClass \App\Http\Controllers\PostController
+ * @coversDefaultClass \App\Http\Controllers\PostsController
  */
 class PostTest extends TestCase
 {
