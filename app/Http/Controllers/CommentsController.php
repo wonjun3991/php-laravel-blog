@@ -10,7 +10,7 @@ class CommentsController extends Controller
 {
     public function store(CommentRequest $request, Post $post): RedirectResponse
     {
-        $post->comments()->create($request->validated());
+        $post->comments()->create($request->all());
         return redirect()->route('posts.show', ['post' => $post]);
     }
 }

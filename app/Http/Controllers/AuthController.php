@@ -12,7 +12,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
-
 class AuthController extends Controller
 {
     public function loginForm(): Factory|View|Application
@@ -20,6 +19,10 @@ class AuthController extends Controller
         return view('auth/login');
     }
 
+    /**
+     * @param LoginRequest $request
+     * @return RedirectResponse
+     */
     public function login(LoginRequest $request): RedirectResponse
     {
         $credentials = $request->validated();
