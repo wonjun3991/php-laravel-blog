@@ -18,3 +18,7 @@ composer install
 ```bash
 php artisan serve
 ```
+## 테스트
+```bash
+php artisan test
+```
