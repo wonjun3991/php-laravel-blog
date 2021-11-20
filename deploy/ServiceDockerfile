@@ -1,0 +1,22 @@
+FROM qazz92/php:8.0.12-alpine-v2
+
+COPY ./deploy/config/supervisord.conf /supervisord.conf
+COPY ./deploy/config/php-fpm-www.conf /etc/php7/php-fpm.d/www.conf
+COPY ./deploy/config/nginx.conf /etc/nginx/nginx.conf
+COPY ./deploy/config/default.conf /etc/nginx/conf.d/default.conf
+COPY ./deploy/config/docker-entrypoint.sh /docker-entrypoint.sh
+
+WORKDIR /var/www
+
+COPY . /var/www
+
+RUN chmod +x /docker-entrypoint.sh && \
+    chown -R www-data:www-data /var/www && \
+    chmod -R 777 /var/www/storage && \
+    ln -sf /dev/stdout /var/log/nginx/access.log && \
+    ln -sf /dev/stderr /var/log/nginx/error.log && \
+    composer dump-autoload --optimize
+
+EXPOSE 80
+
+CMD ["sh","-c","/docker-entrypoint.sh"]

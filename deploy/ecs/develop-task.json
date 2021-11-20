@@ -1,0 +1,41 @@
+{
+    "executionRoleArn": "arn:aws:iam::684231376422:role/ecsTaskExecutionRole",
+    "taskRoleArn": "arn:aws:iam::684231376422:role/LocalblogEcsTaskRole",
+    "containerDefinitions": [
+        {
+            "image": "test",
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/local-blog",
+                    "awslogs-region": "ap-northeast-2",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "protocol": "tcp",
+                    "containerPort": 80
+                }
+            ],
+            "ulimits": [
+                {
+                    "name": "nofile",
+                    "softLimit": 65535,
+                    "hardLimit": 65535
+                }
+            ],
+            "name": "local-blog",
+            "essential": true
+        }
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "networkMode": "awsvpc",
+    "cpu": "256",
+    "memory": "512",
+    "family": "local-blog"
+}

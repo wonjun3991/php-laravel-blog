@@ -1,0 +1,51 @@
+FROM php:8.0.12-fpm-alpine
+
+LABEL maintainer="local.host"
+
+ENV TZ=Asia/Seoul
+
+# Create user
+RUN mkdir -p /var/www && \
+    chown -R www-data:www-data /var/www
+
+RUN apk add --no-cache --update \
+    wget \
+    bash \
+    curl \
+    tzdata \
+    zlib \
+    openssl \
+    zlib-dev \
+    jq \
+    git \
+    gcc \
+    make \
+    autoconf \
+    file \
+    re2c \
+    g++ \
+    nginx \
+    openssl-dev \
+    python3 \
+    py3-pip
+
+RUN pip3 --no-cache-dir install awscli
+
+COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/bin/supervisord
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+
+RUN apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing gnu-libiconv
+
+ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
+
+RUN install-php-extensions pdo_mysql gd zip bcmath bz2 calendar opcache sockets
+
+RUN echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories && \
+    apk --no-cache add git shadow && usermod -u 1000 www-data
+
+RUN mkdir -p /var/cache/nginx && \
+    chown -R www-data:www-data /var/cache/nginx && \
+    chown -R www-data:www-data /var/lib/nginx && \
+    rm -rf /var/cache/apk/*
