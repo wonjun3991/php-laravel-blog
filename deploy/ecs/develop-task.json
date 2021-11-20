@@ -1,6 +1,6 @@
 {
-    "executionRoleArn": "arn:aws:iam::684231376422:role/ecsTaskExecutionRole",
-    "taskRoleArn": "arn:aws:iam::684231376422:role/LocalblogEcsTaskRole",
+    "executionRoleArn": "arn:aws:iam::706568367077:role/ecsTaskExecutionRole",
+    "taskRoleArn": "arn:aws:iam::706568367077:role/LaravelBlogEcsTaskRoleNew",
     "containerDefinitions": [
         {
             "image": "test",
