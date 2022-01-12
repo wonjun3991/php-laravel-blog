@@ -4,9 +4,11 @@ on:
   push:
     branches: 
       - '*'
+      - '*/*'
   pull_request:
     branches:
       - '*'
+      - '*/*'
 
 jobs:
   laravel-tests:
@@ -19,7 +21,6 @@ jobs:
         php-version: '8.0'
         extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, memcached
         tools: composer:v2
-        coverage: xdebug
     - uses: actions/checkout@v2
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
