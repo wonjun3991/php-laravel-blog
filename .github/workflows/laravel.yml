@@ -35,8 +35,5 @@ jobs:
     - name: CodeSniffer Test by PSR-12
       run: vendor/bin/phpcs app --standard=PSR12
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
 
