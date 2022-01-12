@@ -33,6 +33,8 @@ jobs:
       run: chmod -R 777 storage bootstrap/cache
     - name: Php Artisan test
       run: php artisan test
+    - name: CodeSniffer Test by PSR-12
+      run: vendor/bin/phpcs app --standard=PSR12
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite
